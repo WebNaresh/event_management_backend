@@ -40,6 +40,7 @@ type LoginResponse = {
 export default function LoginForm() {
   const navigate = useNavigate();
   const { saveToken } = useAuthToken();
+  console.log("axios.defaults.baseURL", axios.defaults.baseURL);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
