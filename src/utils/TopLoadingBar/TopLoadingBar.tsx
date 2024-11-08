@@ -1,4 +1,3 @@
-import React from "react";
 import LoadingBar from "react-top-loading-bar";
 import useAppState from "../../hooks/useAppState";
 

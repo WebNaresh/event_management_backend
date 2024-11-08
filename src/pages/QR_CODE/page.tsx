@@ -1,9 +1,7 @@
 import { useAuthToken } from "@/hooks/useAuthToken";
 import QRCode from "react-qr-code";
 
-type Props = {};
-
-const QRCodePage = (props: Props) => {
+const QRCodePage = () => {
   const { getDecodeToken } = useAuthToken();
   const decodedToken = getDecodeToken();
 
