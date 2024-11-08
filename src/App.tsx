@@ -11,6 +11,10 @@ import TopNav from "./utils/TopNav/TopNav";
 const queryClient = new QueryClient();
 axios.defaults.baseURL =
   import.meta.env.VITE_SERVER_URL || "http://localhost:4000";
+console.log(
+  `🚀 ~ file: App.tsx:14 ~ import.meta.env.VITE_SERVER_URL:`,
+  import.meta.env.VITE_SERVER_URL
+);
 console.log("axios.defaults.baseURL", axios.defaults.baseURL);
 
 function App() {
