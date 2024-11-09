@@ -95,7 +95,7 @@ export default function EVENT_LIST() {
     <div className="flex flex-wrap gap-8">
       {data?.data.map((event) => (
         <Card key={event.id} className="w-[300px] h-[300px]">
-          <Link to={`/event/${event.id}`} key={event.id}>
+          <Link to={`/security/dashboard/${event.id}`} key={event.id}>
             <CardHeader>
               <CardTitle>{event.title}</CardTitle>
               <CardDescription>{event.description}</CardDescription>
@@ -110,12 +110,6 @@ export default function EVENT_LIST() {
               <MapPinIcon className="h-4 w-4" />
               <span>{event.location}</span>
             </div>
-            <button
-              onClick={() => mutation.mutate(event?.id)}
-              className="mt-4 text-red-500"
-            >
-              Delete
-            </button>
           </CardContent>
         </Card>
       ))}

@@ -2,6 +2,7 @@
 
 import { toast } from "@/hooks/use-toast";
 import { useAuthToken } from "@/hooks/useAuthToken";
+import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import * as React from "react";
 import DashboardDialog from "./_components/event_dilog";
@@ -12,6 +13,7 @@ const SA_DASH: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = React.useState(false);
   const { token, getDecodeToken } = useAuthToken();
+  const queryClient = useQueryClient();
 
   async function handleFormSubmit(values: any) {
     try {
@@ -32,6 +34,9 @@ const SA_DASH: React.FC = () => {
       toast({
         title: "Event Added",
         description: "Title: " + response.data.title,
+      });
+      await queryClient?.invalidateQueries({
+        queryKey: ["events"],
       });
       setIsModalOpen(false);
     } catch (error) {

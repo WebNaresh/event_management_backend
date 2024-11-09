@@ -57,6 +57,7 @@ export default function SecurityAssignmentForm({ eventId }: Props) {
       securityPersonIds: [],
     },
   });
+  console.log(`🚀 ~ file: security_form.tsx:60 ~ form:`, form.formState.errors);
 
   const { data: securityPersons } = useQuery({
     queryKey: ["securityPersons", event_id],
@@ -71,15 +72,18 @@ export default function SecurityAssignmentForm({ eventId }: Props) {
   );
   const { mutate } = useMutation({
     mutationFn: async (values: z.infer<typeof securityPersonSchema>) => {
-      const response = await axios.post(
-        `/event/${eventId}/assign-security-person`,
-        values
-      );
+      const response = await axios.post("/security/assign", {
+        event_id: eventId,
+        user_ids: values.securityPersonIds,
+      });
       return response.data;
     },
     onSettled: async () => {
       await queryClient?.invalidateQueries({
         queryKey: ["event", eventId],
+      });
+      await queryClient?.invalidateQueries({
+        queryKey: ["securityPersons", eventId],
       });
       setIsDialogOpen(false);
       form.reset();
@@ -121,6 +125,19 @@ export default function SecurityAssignmentForm({ eventId }: Props) {
                         })) as any
                       }
                       className="input"
+                      onChange={(selectedOptions) => {
+                        field.onChange(
+                          selectedOptions.map((option: any) => option.value)
+                        );
+                      }}
+                      value={securityPersons
+                        ?.filter((person: SecurityPerson) =>
+                          field.value.includes(person.id)
+                        )
+                        .map((person: SecurityPerson) => ({
+                          value: person.id,
+                          label: `${person.first_name} ${person.last_name}`,
+                        }))}
                     />
                   </FormControl>
                   <FormMessage />

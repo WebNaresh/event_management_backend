@@ -4,23 +4,20 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "./components/login-form";
 
 const Login = () => {
-  const { token } = useAuthToken();
+  const { token, getDecodeToken } = useAuthToken();
   const navigate = useNavigate();
 
+  console.log(`🚀 ~ file: Login.tsx:20 ~ getDecodeToken():`, getDecodeToken());
   useEffect(() => {
-    if (token) {
+    if (getDecodeToken()) {
       // Assuming the role is stored in the token or can be fetched
-      const userRole = "super_admin"; // Replace with actual role fetching logic
-      if (userRole === "super_admin") {
-        navigate("/super_admin/dashboard", { replace: false });
-      } else {
-        navigate("/user/dashboard", {
-          replace: true,
-          unstable_viewTransition: false,
-        });
+      if (getDecodeToken()?.role === "SUPER_ADMIN") {
+        navigate("/super_admin/dashboard");
+      } else if (getDecodeToken()?.role === "SECURITY") {
+        navigate("/security/dashboard");
       }
     }
-  }, [token, navigate]);
+  }, [getDecodeToken(), navigate]);
 
   return (
     <div>

@@ -11,7 +11,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ height: "1222vh" }}>Home page is under construction</div>
+    <div style={{ height: "1222vh" }} className="container">
+      Home page is under construction
+    </div>
   );
 };
 

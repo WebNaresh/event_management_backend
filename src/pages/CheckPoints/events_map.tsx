@@ -110,12 +110,6 @@ export default function EVENT_LIST() {
               <MapPinIcon className="h-4 w-4" />
               <span>{event.location}</span>
             </div>
-            <button
-              onClick={() => mutation.mutate(event?.id)}
-              className="mt-4 text-red-500"
-            >
-              Delete
-            </button>
           </CardContent>
         </Card>
       ))}

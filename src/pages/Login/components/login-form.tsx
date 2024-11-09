@@ -67,7 +67,12 @@ export default function LoginForm() {
         title: "Login Successful",
         description: "Welcome back!",
       });
-      navigate("/super_admin/dashboard");
+      console.log(`🚀 ~ file: login-form.tsx:71 ~ data.role:`, data.role);
+      if (data.role === "SUPER_ADMIN") {
+        navigate("/super_admin/dashboard");
+      } else if (data.role === "SECURITY") {
+        navigate("/security/dashboard");
+      }
       // Handle successful login, e.g., redirect to dashboard
     },
     onError: (error) => {
