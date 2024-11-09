@@ -7,6 +7,7 @@ const QRCodePage = () => {
   const { getDecodeToken } = useAuthToken();
   const decodedToken = getDecodeToken();
   const qrRef = useRef(null);
+  console.log(`🚀 ~ file: page.tsx:10 ~ qrRef:`, qrRef);
 
   const downloadQRCode = async () => {
     if (qrRef.current) {
