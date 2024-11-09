@@ -39,3 +39,20 @@ export class CreateAuthDto {
   @MinLength(6)
   password: string;
 }
+
+export class LoginAuthDto {
+  @ApiProperty({
+    example: 'sa@gmail.com',
+    description: 'The email of the user',
+  })
+  @IsEmail()
+  email: string;
+
+  @ApiProperty({
+    example: 'Pass@123',
+    description: 'The password of the user',
+  })
+  @IsString()
+  @MinLength(6)
+  password: string;
+}
