@@ -93,7 +93,12 @@ const SingleCheckPoint = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <Scanner onScan={(result) => console.log(result)} />;
+            <Scanner
+              onScan={(result) => console.log(result)}
+              paused={false}
+              onError={(error) => console.error(error)}
+            />
+            ;
           </CardContent>
         </Card>
       )}
