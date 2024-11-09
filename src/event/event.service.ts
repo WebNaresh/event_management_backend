@@ -116,4 +116,31 @@ export class EventService {
       message: 'You have successfully registered for the event',
     };
   }
+
+  async get_registered_users(event_id: string) {
+    const users = await this.prisma.registeredEvent.findMany({
+      where: {
+        eventId: event_id,
+      },
+    });
+    return {
+      message: 'List of all registered users',
+      data: users,
+    };
+  }
+
+  async get_event_insight(event_id: string) {
+    const event = await this.prisma.event.findUnique({
+      where: { id: event_id },
+      include: {
+        registered_user: true,
+        checkPoints: true,
+        security_person: true,
+      },
+    });
+    return {
+      message: 'Event insights retrieved successfully',
+      data: event,
+    };
+  }
 }

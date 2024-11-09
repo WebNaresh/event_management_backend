@@ -135,4 +135,36 @@ export class EventController {
   ) {
     return this.eventService.register_for_event(event_id, user_id);
   }
+
+  @Get(`:event_id/registered-users`)
+  @ApiOperation({ summary: 'Get registered users for an event' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of all registered users.',
+  })
+  @ApiParam({
+    name: 'event_id',
+    description: 'Event ID',
+    example: '672ec7d48d2214936a6c7951',
+  })
+  @ApiResponse({ status: 404, description: 'No registered users found.' })
+  getRegisteredUsers(@Param('event_id') event_id: string) {
+    return this.eventService.get_registered_users(event_id);
+  }
+
+  @Get(`:event_id/insight`)
+  @ApiOperation({ summary: 'Get event insight' })
+  @ApiResponse({
+    status: 200,
+    description: 'Event insights retrieved successfully.',
+  })
+  @ApiParam({
+    name: 'event_id',
+    description: 'Event ID',
+    example: '672ec7d48d2214936a6c7951',
+  })
+  @ApiResponse({ status: 404, description: 'Event not found.' })
+  getEventInsight(@Param('event_id') event_id: string) {
+    return this.eventService.get_event_insight(event_id);
+  }
 }
