@@ -31,8 +31,10 @@ const SingleCheckPoint = () => {
   });
 
   const handleScan = (detectedCodes: IDetectedBarcode[]) => {
+    console.log(`🚀 ~ file: page.tsx:34 ~ detectedCodes:`, detectedCodes);
     if (detectedCodes.length > 0) {
       const result = detectedCodes[0].rawValue;
+      console.log(`🚀 ~ file: page.tsx:37 ~ result:`, result);
       setScannedData(result);
       setIsCameraOpen(false);
       console.log("Scanned result:", result);
