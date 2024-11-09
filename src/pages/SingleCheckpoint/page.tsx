@@ -4,7 +4,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
-import { Scanner } from "@yudiel/react-qr-scanner";
+import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner";
 import axios from "axios";
 import { Camera, StopCircle, X } from "lucide-react";
 import { useState } from "react";
@@ -30,13 +30,21 @@ const SingleCheckPoint = () => {
     enabled: !!params.checkpoint_id,
   });
 
-  const handleScan = (result: string) => {
-    setScannedData(result);
-    setIsCameraOpen(false);
+  const handleScan = (detectedCodes: IDetectedBarcode[]) => {
+    if (detectedCodes.length > 0) {
+      const result = detectedCodes[0].rawValue;
+      setScannedData(result);
+      setIsCameraOpen(false);
+      console.log("Scanned result:", result);
+    }
   };
 
-  const handleError = (error: Error) => {
-    console.error("QR scan error:", error);
+  const handleError = (error: unknown) => {
+    if (error instanceof Error) {
+      console.error("QR scan error:", error.message);
+    } else {
+      console.error("QR scan error:", error);
+    }
   };
 
   const handleStopScanning = () => {
@@ -93,12 +101,7 @@ const SingleCheckPoint = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <Scanner
-              onScan={(result) => console.log(result)}
-              paused={false}
-              onError={(error) => console.error(error)}
-            />
-            ;
+            <Scanner onScan={handleScan} paused={false} onError={handleError} />
           </CardContent>
         </Card>
       )}

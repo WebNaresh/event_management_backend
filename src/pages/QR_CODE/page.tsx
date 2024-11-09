@@ -1,13 +1,11 @@
 import { useAuthToken } from "@/hooks/useAuthToken";
 import { toPng } from "html-to-image";
 import { useRef } from "react";
-import QRCode from "react-qr-code";
 
 const QRCodePage = () => {
   const { getDecodeToken } = useAuthToken();
   const decodedToken = getDecodeToken();
   const qrRef = useRef(null);
-  console.log(`🚀 ~ file: page.tsx:10 ~ qrRef:`, qrRef);
 
   const downloadQRCode = async () => {
     if (qrRef.current) {
@@ -24,7 +22,10 @@ const QRCodePage = () => {
       {decodedToken ? (
         <>
           <div ref={qrRef}>
-            <QRCode value={decodedToken.id} />
+            <img
+              src={`https://api.qrserver.com/v1/create-qr-code/?data=${decodedToken.id}&size=300x300`}
+              alt="qr code"
+            />
           </div>
           <button
             onClick={downloadQRCode}
