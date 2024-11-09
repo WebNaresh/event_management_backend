@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { CalendarIcon, MapPinIcon } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -37,29 +37,21 @@ const fetchEvents = async (): Promise<EventsResponse> => {
   return response.data;
 };
 
-const deleteEvent = async (eventId: string) => {
-  await axios.delete(`/event/${eventId}`, {
-    headers: {
-      accept: "*/*",
-    },
-  });
-};
-
 export default function EVENT_LIST() {
   const { data, error, isLoading } = useQuery<EventsResponse>({
     queryKey: ["events"],
     queryFn: fetchEvents,
   });
 
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: deleteEvent,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["events"],
-      });
-    },
-  });
+  // const queryClient = useQueryClient();
+  // const mutation = useMutation({
+  //   mutationFn: deleteEvent,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({
+  //       queryKey: ["events"],
+  //     });
+  //   },
+  // });
 
   if (isLoading) {
     return (

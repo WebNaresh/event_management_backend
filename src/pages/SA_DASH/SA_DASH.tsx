@@ -48,7 +48,7 @@ const SA_DASH: React.FC = () => {
   }
   async function handleSecurityFormSubmit(values: any) {
     try {
-      const userId = getDecodeToken()?.id;
+      // const userId = getDecodeToken()?.id;
       const response = await axios.post(
         "/security",
         {

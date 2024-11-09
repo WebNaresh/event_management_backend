@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "./components/login-form";
 
 const Login = () => {
-  const { token, getDecodeToken } = useAuthToken();
+  const { getDecodeToken } = useAuthToken();
   const navigate = useNavigate();
 
   console.log(`🚀 ~ file: Login.tsx:20 ~ getDecodeToken():`, getDecodeToken());
