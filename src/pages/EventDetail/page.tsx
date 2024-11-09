@@ -6,6 +6,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import CheckPointForm from "./_components/check_point_form";
 import EventCard from "./_components/event_card";
+import SecurityAssignmentForm from "./_components/security_form";
 
 interface CheckPoint {
   id: string;
@@ -105,7 +106,10 @@ export default function EventDetail() {
     <div className="container mx-auto mt-8 gap-4 flex flex-col">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Event Detail</h2>
-        <CheckPointForm eventId={event.id} />
+        <div className="flex gap-4">
+          <CheckPointForm eventId={event.id} />
+          <SecurityAssignmentForm eventId={event.id} />
+        </div>
       </div>
       <EventCard event={event} />
       <div className="mt-4">
