@@ -71,11 +71,14 @@ export default function CHECKPOINT_LIST({ eventId }: Props) {
 
   return (
     <div className="flex flex-wrap gap-8">
-      {data?.data.map((event) => (
-        <Card key={event.id} className="w-[300px] h-auto">
-          <Link to={`/event/${event.id}`} key={event.id}>
+      {data?.data.map((checkpoint) => (
+        <Card key={checkpoint.id} className="w-[300px] h-auto">
+          <Link
+            to={`/security/dashboard/${eventId}/checkpoint/${checkpoint.id}`}
+            key={checkpoint.id}
+          >
             <CardHeader>
-              <CardTitle>{event.name}</CardTitle>
+              <CardTitle>{checkpoint.name}</CardTitle>
             </CardHeader>
           </Link>
         </Card>

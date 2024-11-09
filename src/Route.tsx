@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login";
 import QRCodePage from "./pages/QR_CODE/page";
 import SA_DASH from "./pages/SA_DASH/SA_DASH";
 import SECURITY_ADMIN_PANEL from "./pages/SEC_DASH/page";
+import SingleCheckPoint from "./pages/SingleCheckpoint/page";
 const App = () => {
   return (
     <Routes>
@@ -14,6 +15,10 @@ const App = () => {
       <Route path="/super_admin/dashboard" element={<SA_DASH />} />
       <Route path="/security/dashboard" element={<SECURITY_ADMIN_PANEL />} />
       <Route path="/security/dashboard/:event_id" element={<CheckPoints />} />
+      <Route
+        path="/security/dashboard/:event_id/checkpoint/:checkpoint_id"
+        element={<SingleCheckPoint />}
+      />
       <Route path="/event/:event_id" element={<EventDetail />} />
       <Route path="/qr_code" element={<QRCodePage />} />
     </Routes>
