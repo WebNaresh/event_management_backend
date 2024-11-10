@@ -17,6 +17,7 @@ async function main() {
         { name: 'Add Super Admin', value: 'add_super_admin' },
         { name: 'Add User', value: 'add_user' },
         { name: 'Add Security Person', value: 'add_security_person' },
+        { name: 'Reset Database', value: 'reset_db' },
         { name: 'Exit', value: 'exit' },
       ],
     });
@@ -37,7 +38,10 @@ async function main() {
       case 'add_security_person':
         await addSecurityPerson();
         break;
-
+      case 'reset_db':
+        await resetDB();
+        console.log('Database reset.');
+        break;
       case 'exit':
         console.log('Exiting...');
         running = false;
@@ -144,8 +148,8 @@ async function addEvents() {
     // Create the event and connect users and security personnel
     const event = await prisma.event.create({
       data: {
-        title: faker.lorem.sentence(),
-        description: faker.lorem.paragraph(),
+        title: faker.lorem.words(3),
+        description: faker.lorem.words(5),
         date: faker.date.future(),
         location: faker.location.streetAddress(),
         user: {
@@ -264,6 +268,13 @@ async function addSecurityPerson() {
   });
 
   console.log(`Security Person created with email ${email}.`);
+}
+
+async function resetDB() {
+  await prisma.eventSecurityAssignment.deleteMany();
+  await prisma.registeredEvent.deleteMany();
+  await prisma.event.deleteMany();
+  await prisma.user.deleteMany();
 }
 
 main().catch((e) => {
