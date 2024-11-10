@@ -167,4 +167,20 @@ export class EventController {
   getEventInsight(@Param('event_id') event_id: string) {
     return this.eventService.get_event_insight(event_id);
   }
+
+  @Get(':event_id/security-guard')
+  @ApiOperation({ summary: 'Get security guard for an event' })
+  @ApiResponse({
+    status: 200,
+    description: 'Security guard for the event retrieved successfully.',
+  })
+  @ApiParam({
+    name: 'event_id',
+    description: 'Event ID',
+    example: '672ec7d48d2214936a6c7951',
+  })
+  @ApiResponse({ status: 404, description: 'Event not found.' })
+  getEventSecurityGuard(@Param('event_id') event_id: string) {
+    return this.eventService.get_event_security_guard(event_id);
+  }
 }

@@ -122,6 +122,9 @@ export class EventService {
       where: {
         eventId: event_id,
       },
+      include: {
+        user: true,
+      },
     });
     return {
       message: 'List of all registered users',
@@ -141,6 +144,23 @@ export class EventService {
     return {
       message: 'Event insights retrieved successfully',
       data: event,
+    };
+  }
+
+  async get_event_security_guard(event_id: string) {
+    const event = await this.prisma.event.findUnique({
+      where: { id: event_id },
+      include: {
+        security_person: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+    return {
+      message: 'Security guard for the event retrieved successfully',
+      data: event?.security_person,
     };
   }
 }
